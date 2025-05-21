@@ -1,4 +1,4 @@
-# 🎫 Sistema de Venta de Entradas para Eventos
+#  Sistema de Venta de Entradas para Eventos 🎫
 
 Proyecto académico desarrollado en equipo para la UTN FRGP. Aplicación web en C# ASP.NET que permite gestionar eventos y vender entradas en línea.
 

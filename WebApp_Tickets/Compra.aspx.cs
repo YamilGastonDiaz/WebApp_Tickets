@@ -27,8 +27,8 @@ namespace WebApp_Tickets
 
                     mostrarEvento.Add(negocio.buscarEvento(id));
 
-                    rpt_Name.DataSource = mostrarEvento;
-                    rpt_Name.DataBind();
+                    rpt_NameYcantidad.DataSource = mostrarEvento;
+                    rpt_NameYcantidad.DataBind();
 
                     rpt_Hora.DataSource = mostrarEvento;
                     rpt_Hora.DataBind();
@@ -41,6 +41,7 @@ namespace WebApp_Tickets
 
         private int total = 0;
         private decimal totalFinal = 0;
+        private const int MAX_ENTRADAS = 5;
 
         protected void Decrementar_Click(object sender, EventArgs e)
         {
@@ -75,7 +76,7 @@ namespace WebApp_Tickets
             Evento evento = negocio.buscarEvento(id);
 
             total = int.Parse(lbl_Contar.Text);
-            if (total < 5)
+            if (total < MAX_ENTRADAS && total < evento.totalTickt)
             {
                 total++;
             }
@@ -92,82 +93,33 @@ namespace WebApp_Tickets
         protected void Pagar_click(object sender, EventArgs e)
         {
             NegocioEvento negocioE = new NegocioEvento();            
-            NegocioCompra negocioC = new NegocioCompra();
             NegocioMercadoPago negocioMP = new NegocioMercadoPago();
-            EntradaQR entradaQr = new EntradaQR();
-            EmailService email = new EmailService();
-
-            string asunto = "Entrada para el Evento";
-            string body = "Hola, aquí tienes tu entrada para el evento. Gracias por tu compra!!!";
 
             try
             {
+                if (Session["Usuario_Id"] == null)
+                {
+                    Response.Redirect("Login.aspx", false);
+                    return;
+                }
+
                 int cantidad = int.Parse(lbl_Cantidad.Text);
 
                 if (AceptarTerminos() && cantidad > 0)
                 {
-                    int id = (int)Session["id"];
-                    int idU = (int)Session["Usuario_Id"];
-                    string mail = (string)Session["email"];
-                    Evento evento = negocioE.buscarEvento(id);
+                    int idEvento = (int)Session["id"];
+                    Evento evento = negocioE.buscarEvento(idEvento);
 
                     // Datos de la compra                    
-
                     string nombre = evento.name.ToString();
-                    string fecha = evento.fecha.ToString("dddd, dd MMMM yyyy");
-                    string lugar = evento.locale.ToString();
-                    string direccion = evento.direction.ToString();                    
-                    int eventoId = id;
-                    int UserId = idU;
-                    decimal monto = decimal.Parse(lbl_TicketPrecio.Text);//para la preferencia
-                    decimal total = decimal.Parse(lbl_Total.Text);//para la compra
+                    decimal precioUnitario = decimal.Parse(lbl_TicketPrecio.Text);
 
-                    // Crear la preferencia                    
-                    string checkoutUrl = negocioMP.CrearPreferencia(nombre, monto, cantidad);                                     
+                    Session["Cantidad"] = cantidad;
+                    Session["PrecioUnitario"] = precioUnitario;
                     
-                    //Response.Write("<script> window.open( '" + checkoutUrl + "','_blank' ); </script>");
-                    //Response.End();
+                    string checkoutUrl = negocioMP.CrearPreferencia(nombre, precioUnitario, cantidad);
 
-                    /*string status = Request.QueryString["status"];*/
-
-                    /* if (status == "success")
-                     {*/
-                    // Registrar la compra
-                    int compraId = negocioC.AgregarCompra(eventoId, UserId, cantidad, total, 1);
-
-                    for (int i = 0; i < cantidad; i++)
-                    {
-                        negocioC.AgregarEntrada(compraId, eventoId, UserId, 1);
-                    }
-
-                    //Obtener los códigos de las entradas
-                    List<string> entrada = negocioC.ObtenerCodigo(UserId);
-
-                    //Crear la instancia de EmailService
-                    EmailService emailService = new EmailService();
-
-                    // Armar el correo
-                    emailService.ArmarEmail(mail, asunto, body);
-
-                    foreach (string codigo in entrada)
-                    {
-                        //Generar PDF en memoria
-                        byte[] pdfByte = entradaQr.GenerarPDF(nombre, fecha, lugar, direccion, codigo);
-
-                        //Crear un MemoryStream para el archivo PDF
-                        MemoryStream pdfStream = new MemoryStream(pdfByte);
-
-                        // Crear el adjunto
-                        Attachment adjunto = new Attachment(pdfStream, $"{codigo}.pdf", "application/pdf");
-
-                        // Agregar cada archivo PDF como adjunto
-                        emailService.AgregarAdjunto(adjunto); 
-                    }
-
-                    //Enviar el correo
-                    emailService.EnviarEmail();
-
-                    /*}*/
+                    Response.Redirect(checkoutUrl, false);
                 }
                 else
                 {

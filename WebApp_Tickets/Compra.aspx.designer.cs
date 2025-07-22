@@ -15,13 +15,13 @@ namespace WebApp_Tickets
     {
 
         /// <summary>
-        /// Control rpt_Name.
+        /// Control rpt_NameYcantidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rpt_Name;
+        protected global::System.Web.UI.WebControls.Repeater rpt_NameYcantidad;
 
         /// <summary>
         /// Control rpt_Hora.

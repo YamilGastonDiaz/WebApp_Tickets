@@ -21,7 +21,7 @@
                     <div class="col-12">
                         <div class="list-group">
                             <!-- Los enlaces activan las vistas -->
-                            <asp:LinkButton ID="lnkEditarCuenta" runat="server" CssClass="list-group-item list-group-item-dark" OnClick="MostrarEditarCuenta">
+                            <asp:LinkButton ID="lnkEditarCuenta" runat="server" CssClass="list-group-item list-group-item-dark">
                                  <i class="bi bi-person-fill-gear"></i> Editar Cuenta
                             </asp:LinkButton>
                             <asp:LinkButton ID="lnkCambiarContrasena" runat="server" CssClass="list-group-item list-group-item-dark" OnClick="MostrarCambiarContrasenia">
@@ -75,7 +75,7 @@
                                 </div>
 
                                 <div class="mb-3 text-center">
-                                    <asp:Button ID="Button1" runat="server" Text="Modificar" class="btn btn-primary col-12" OnClick="Modificar_btn" />
+                                    <asp:Button ID="Button1" runat="server" Text="Modificar" class="btn btn-primary col-12" OnClick="Modificar_btn" OnClientClick="return confirm('¿Estás seguro de que deseas modificar tus datos?');" />
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                             Esta acción es irreversible. Si eliminas tu cuenta, perderás toda la información asociada.
                         </p>
                         <div class="d-grid col-6 mx-auto">
-                            <asp:Button ID="btnEliminarCuenta" runat="server" Text="Eliminar Cuenta" CssClass="btn btn-danger" OnClick="ClickEliminarUser" />
+                            <asp:Button ID="btnEliminarCuenta" runat="server" Text="Eliminar Cuenta" CssClass="btn btn-danger" OnClick="ClickEliminarUser" OnClientClick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?');" />
                         </div>
                     </asp:View>
 

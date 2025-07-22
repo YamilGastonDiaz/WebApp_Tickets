@@ -7,48 +7,22 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    public class NegocioCompra    {      
-
-        public int AgregarCompra(int eventoId, int usuarioId, int cantidad, decimal monto, int estado)
+    public class NegocioCompra
+    {
+        private AccessDB datos = new AccessDB();
+        public int RegistrarCompraConEntradas(int eventoId, int usuarioId, int cantidad, decimal monto)
         {
-            AccessDB datos = new AccessDB();
 
             try
-			{
-                datos.setearConsulta("INSERT INTO Compras (Id_Evento, Id_Usuario, CantidadEntrada, MontoTotal, Estado) VALUES (@Id_Evento, @Id_Usuario, @CantidadEntrada, @MontoTotal, @Estado); " + "SELECT SCOPE_IDENTITY();");
+            {
+                datos.setearProcedure("SP_RegistrarCompraConEntradas");
                 datos.setearParametro("@Id_Evento", eventoId);
                 datos.setearParametro("@Id_Usuario", usuarioId);
-                datos.setearParametro("@CantidadEntrada", cantidad);                
+                datos.setearParametro("@CantidadEntrada", cantidad);
                 datos.setearParametro("@MontoTotal", monto);
-                datos.setearParametro("@Estado", estado);
 
-                int id = datos.ejecutarScalar();
-
-                return id;
-            }
-			catch (Exception ex)
-			{
-				throw ex;
-            }
-            finally
-            {
-                datos.cerrarConnection();
-            }
-        }
-
-        public void AgregarEntrada(int compraId, int eventoId, int usuarioId, int estado)
-        {
-            AccessDB datos = new AccessDB();
-
-            try
-            {
-                datos.setearConsulta("INSERT INTO Entradas (Id_Compra, Id_Evento, Id_Usuario, Estado) VALUES (@Id_Compra, @Id_Evento, @Id_Usuario, @Estado);");
-                datos.setearParametro("@Id_Compra", compraId);
-                datos.setearParametro("@Id_Evento", eventoId);
-                datos.setearParametro("@Id_Usuario", usuarioId);                
-                datos.setearParametro("@Estado", estado);
-
-                datos.ejecutarAccion();            
+                int compraId = datos.ejecutarScalar();
+                return compraId;
             }
             catch (Exception ex)
             {
@@ -60,20 +34,20 @@ namespace Negocio
             }
         }
 
-        public List<string> ObtenerCodigo(int usuario)
+        public List<string> ObtenerCodigoPorCompra(int compraId)
         {
             List<string> codigos = new List<string>();
             AccessDB datos = new AccessDB();
 
             try
             {
-                datos.setearConsulta("SELECT Codigo FROM Entradas as E INNER JOIN Compras as C ON E.Id_Compra = C.Compra_Id WHERE C.Id_Usuario = @idUsuario AND C.Compra_Id = (SELECT MAX(Compra_Id) FROM Compras WHERE Id_Usuario = @idUsuario);");
-                datos.setearParametro("@idUsuario", usuario);
+                datos.setearConsulta(@"SELECT Codigo FROM Entradas WHERE Id_Compra = @compraId;");
+                datos.setearParametro("@compraId", compraId);
 
                 datos.ejecutarRead();
 
                 while (datos.Lector.Read())
-                {                   
+                {
                     codigos.Add(datos.Lector["Codigo"].ToString());
                 }
 
@@ -83,7 +57,10 @@ namespace Negocio
             {
                 throw ex;
             }
-
+            finally
+            {
+                datos.cerrarConnection();
+            }
         }
     }
 }

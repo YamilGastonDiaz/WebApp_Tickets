@@ -205,6 +205,7 @@
     <Compile Include="AccessDB.cs" />
     <Compile Include="EmailService.cs" />
     <Compile Include="EntradaQR.cs" />
+    <Compile Include="NegocioArchivosUsuario.cs" />
     <Compile Include="NegocioCompra.cs" />
     <Compile Include="NegocioEvento.cs" />
     <Compile Include="NegocioMercadoPago.cs" />

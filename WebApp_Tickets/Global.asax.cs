@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -18,7 +19,7 @@ namespace WebApp_Tickets
         {
             try
             {
-                MercadoPagoConfig.AccessToken = "APP_USR-6253345231951666-122201-f87b3f3083e97eab9ca39cccdea0f63d-2175041084";
+                MercadoPagoConfig.AccessToken = "";
             }
             catch (Exception ex)
             {

@@ -25,14 +25,25 @@ namespace Negocio
                         CurrencyId = "ARS",
                         UnitPrice = precio,                        
                     },
-                },               
+                },
+                BackUrls = new PreferenceBackUrlsRequest
+                {
+                    Success = "https://localhost:44310/ResultadoPago.aspx?estado=success",
+                    Failure = "https://localhost:44310/ResultadoPago.aspx?estado=failure",
+                    Pending = "https://localhost:44310/ResultadoPago.aspx?estado=pending"
+                },
+                AutoReturn = "approved",
+                ExternalReference = $"ref_{Guid.NewGuid().ToString()}",
+                Expires = true,
+                ExpirationDateFrom = DateTime.Now,
+                ExpirationDateTo = DateTime.Now.AddMinutes(10)
             };
 
             // Crea la preferencia usando el client
             var client = new PreferenceClient();
             var preference = client.Create(request);            
 
-            return preference.InitPoint;
+            return preference.SandboxInitPoint;
         }
     }
 }

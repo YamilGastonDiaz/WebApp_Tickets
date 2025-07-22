@@ -17,72 +17,77 @@ namespace Negocio
 {
     public class EntradaQR
     {
-        public byte[] GenerarCodigoQR(string texto)
+        public string GenerarCodigoQR(string texto, string nombreArchivo, string rutaBase)
         {
+            string carpetaQR = Path.Combine(rutaBase, "QRs");
+
+            if (!Directory.Exists(carpetaQR))
+                Directory.CreateDirectory(carpetaQR);
+
+            string rutaQR = Path.Combine(carpetaQR, nombreArchivo + ".png");
+
             QRCodeGenerator qrGenerado = new QRCodeGenerator();
             QRCodeData qrData = qrGenerado.CreateQrCode(texto, QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrData);
 
-            Bitmap bitmap = qrCode.GetGraphic(10);
-            MemoryStream ms = new MemoryStream();
-            
-            bitmap.Save(ms, ImageFormat.Png);
-            return ms.ToArray();
-            
+            using (Bitmap bitmap = qrCode.GetGraphic(10))
+            {
+                bitmap.Save(rutaQR, ImageFormat.Png);
+            }
 
+            return rutaQR;
         }
 
-        public byte[] GenerarPDF(string nombre, string fecha, string lugar, string direccion, string codigo)
+        public string GenerarPDF(string nombre, string fecha, string lugar, string direccion, string codigo, string rutaBase)
         {
-            MemoryStream ms = new MemoryStream();
-            Document doc = new Document(PageSize.A4);
+            string carpetaPDF = Path.Combine(rutaBase, "PDFs");
 
-            PdfWriter.GetInstance(doc, ms);
-            doc.Open();
+            if (!Directory.Exists(carpetaPDF))
+                Directory.CreateDirectory(carpetaPDF);
 
-            //Estilos
-            iTextSharp.text.Font fuenteMarca = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 30);
-            iTextSharp.text.Font fuenteTexto = FontFactory.GetFont(FontFactory.HELVETICA, 14);
+            string rutaQR = GenerarCodigoQR(codigo, "QR_" + codigo, rutaBase);
+            string rutaPDF = Path.Combine(carpetaPDF, $"Entrada_{codigo}.pdf");
 
-            //Titulo de Marca            
-            doc.Add(new Paragraph("TU ENTRADA", fuenteMarca) { Alignment = Element.ALIGN_CENTER });
+            using (FileStream fs = new FileStream(rutaPDF, FileMode.Create, FileAccess.Write))
+            {
+                iTextSharp.text.Rectangle ticketSize = new iTextSharp.text.Rectangle(250f, 600f);
+                Document doc = new Document(ticketSize);
+                PdfWriter.GetInstance(doc, fs);
+                doc.Open();
 
-            doc.Add(new Paragraph("\n")); // Espacio
+                iTextSharp.text.Font fuenteMarca = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20);
+                iTextSharp.text.Font fuenteCodigo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 15);
+                iTextSharp.text.Font fuenteDescripcion = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+                iTextSharp.text.Font fuenteTexto = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+                iTextSharp.text.Font fuenteLetraChica = FontFactory.GetFont(FontFactory.HELVETICA, 6);
 
-            //Qr
-            byte[] byteQR = GenerarCodigoQR(codigo);
-            iTextSharp.text.Image imageQr = iTextSharp.text.Image.GetInstance(byteQR);
-            imageQr.ScaleAbsolute(150f, 150f);
-            imageQr.Alignment = Element.ALIGN_CENTER;
-            doc.Add(imageQr);                       
+                doc.Add(new Paragraph("TU ENTRADA", fuenteMarca) { Alignment = Element.ALIGN_CENTER });
 
-            doc.Add(new Paragraph("\n"));
+                iTextSharp.text.Image imageQr = iTextSharp.text.Image.GetInstance(rutaQR);
+                imageQr.ScaleAbsolute(150f, 150f);
+                imageQr.Alignment = Element.ALIGN_CENTER;
+                doc.Add(imageQr);
 
-            //Titulo del evento
-            doc.Add(new Paragraph("EVENTO: \n", fuenteTexto));
-            doc.Add(new Paragraph(nombre, fuenteTexto) { Alignment = Element.ALIGN_LEFT });
+                doc.Add(new Paragraph(codigo, fuenteCodigo) { Alignment = Element.ALIGN_CENTER });
 
-            doc.Add(new Paragraph("\n"));
+                doc.Add(new Paragraph("EVENTO: \n", fuenteDescripcion));
+                doc.Add(new Paragraph(nombre, fuenteTexto));
 
-            //Fecha del evento
-            doc.Add(new Paragraph("FECHA EVENTO: \n", fuenteTexto));
-            doc.Add(new Paragraph(fecha, fuenteTexto) { Alignment = Element.ALIGN_LEFT });
+                doc.Add(new Paragraph("FECHA EVENTO: \n", fuenteDescripcion));
+                doc.Add(new Paragraph(fecha, fuenteTexto));
 
-            doc.Add(new Paragraph("\n"));
+                doc.Add(new Paragraph("LUGAR: \n", fuenteDescripcion));
+                doc.Add(new Paragraph(lugar, fuenteTexto));
 
-            //Lugar del evento
-            doc.Add(new Paragraph("LUGAR: \n", fuenteTexto));
-            doc.Add(new Paragraph(lugar, fuenteTexto) { Alignment = Element.ALIGN_LEFT });
+                doc.Add(new Paragraph("DIRECCION: \n", fuenteDescripcion));
+                doc.Add(new Paragraph(direccion, fuenteTexto));
 
-            doc.Add(new Paragraph("\n"));
+                doc.Add(new Paragraph("\nEl adquirente del presente ticket ha suscrito a los términos y condiciones de TUMARCA, motivo por el cual no podrá alegar desconocimiento de los mismos. Cualquier reclamo deberá ser ejercido exclusivamente ante el Organizador", fuenteLetraChica));
 
-            //Direccion del evento
-            doc.Add(new Paragraph("DIRECCION: \n", fuenteTexto));
-            doc.Add(new Paragraph(direccion, fuenteTexto) { Alignment = Element.ALIGN_LEFT });
+                doc.Close();
+            }
 
-            doc.Close();
-
-            return ms.ToArray();
+            return rutaPDF;
         }
     }
 }

@@ -41,9 +41,12 @@
         -->
 
         <!--pricipio buscar-->
-        <section class="row mb-5">
-            <article class="col-12">
-                <input class="form-control form-control-lg me-2 rounded-pill" type="search" placeholder="Buscar" aria-label="Search">
+        <section class="row mb-4 justify-content-center">
+            <article class="col-10">
+               <div class="d-flex p-2">
+                    <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Buscar" />
+                    <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-secondary m-2" Text="Buscar" OnClick="btnBuscar_Click" />
+               </div>
             </article>
         </section>
         <!--fin buscar-->
@@ -58,8 +61,12 @@
         <!--fin titulo-->
 
         <!--pricipio card-->
-        <section class="row align-items-lg-center min-vh-100">
-            <asp:Repeater ID="rpt_Eventos" runat="server">
+        <section class="row align-items-lg-center">
+
+            <asp:Label ID="lblSinResultados" runat="server" CssClass="text-danger fs-5" Visible="false" Text="No se encontraron eventos con ese criterio." />
+
+
+            <asp:Repeater ID="rpt_Eventos" runat="server" OnItemDataBound="rpt_DataBoundEventos">
                 <ItemTemplate>
                     <article class="col-12 col-md-6 col-lg-3 d-flex">
                         <div class="card mx-auto mb-3" style="width: 18rem;">

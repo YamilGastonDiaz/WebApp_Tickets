@@ -33,6 +33,15 @@ namespace WebApp_Tickets
         protected global::System.Web.UI.HtmlControls.HtmlForm form2;
 
         /// <summary>
+        /// Control lbl_Mail.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Mail;
+
+        /// <summary>
         /// Control SignIn.
         /// </summary>
         /// <remarks>

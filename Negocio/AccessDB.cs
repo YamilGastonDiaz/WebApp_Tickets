@@ -32,6 +32,7 @@ namespace Negocio
 
         public void setearConsulta(string consulta)
         {
+            command.Parameters.Clear();
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = consulta;
         }
@@ -43,6 +44,7 @@ namespace Negocio
 
         public void setearProcedure(string SP)
         {
+            command.Parameters.Clear();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = SP;
         }

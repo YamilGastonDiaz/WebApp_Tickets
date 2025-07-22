@@ -143,7 +143,7 @@ namespace Negocio
         {
             try
             {
-                datos.setearConsulta("UPDATE Eventos SET Evento_Nombre = @Nombre, Descripcion = @Descripcion, Evento_Fecha = @Fecha, Evento_Lugar = @Lugar, Evento_Direccion = @Direccion, TotalEntrada = @Total, Precio = @Precio, Evento_Imagen = @Img  WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Eventos SET Evento_Nombre = @Nombre, Descripcion = @Descripcion, Evento_Fecha = @Fecha, Evento_Lugar = @Lugar, Evento_Direccion = @Direccion, TotalEntrada = @Total, Precio = @Precio, Evento_Imagen = @Img  WHERE Evento_Id = @Id");
                 
                 datos.setearParametro("@Nombre", evento.name);
                 datos.setearParametro("@Descripcion", evento.description);

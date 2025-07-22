@@ -24,12 +24,18 @@ namespace WebApp_Tickets
             try
             {
                 DateTime fechaCreacion = DateTime.Now;
-                
-                string ruta = Server.MapPath("./Img/ImgEvento/");
-                string nombreArchivo = "evento_" + fechaCreacion.ToString("yyyyMMdd_HHmmss") + ".jpg";
-                string rutaCompleta = Path.Combine(ruta, nombreArchivo);
+                string nombreArchivo = "";
 
-                txtImagen.PostedFile.SaveAs(rutaCompleta);
+                if (txtImagen.HasFile)
+                {
+                    string extension = Path.GetExtension(txtImagen.FileName);
+                    nombreArchivo = "evento_" + fechaCreacion.ToString("yyyyMMdd_HHmmss") + extension;
+
+                    string ruta = Server.MapPath("~/Img/ImgEvento/");
+                    string rutaCompleta = Path.Combine(ruta, nombreArchivo);
+
+                    txtImagen.SaveAs(rutaCompleta);
+                }
 
                 Evento evento = new Evento
                 {
@@ -39,7 +45,7 @@ namespace WebApp_Tickets
                     locale = txtLugar.Text,
                     direction = txtDireccion.Text,
                     totalTickt = int.Parse(txtTotalEntrada.Text),
-                    price = decimal.Parse(txtTotalEntrada.Text),
+                    price = decimal.Parse(txtPrecio.Text),
                     image = nombreArchivo
                 };
 
@@ -47,11 +53,18 @@ namespace WebApp_Tickets
 
                 string script = "alert('Evento creado correctamente.'); window.location='Default.aspx';";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alertaCrearEvento", script, true);
+
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        protected void btn_Cancelar(object sender, EventArgs e)
+        {
+            Response.Redirect("PerfilAdmin.aspx");
         }
     }
 }

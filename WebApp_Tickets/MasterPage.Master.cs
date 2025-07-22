@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,17 @@ namespace WebApp_Tickets
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Page is WebApp_Tickets.Default ||
+                  Page is WebApp_Tickets.Login ||
+                  Page is WebApp_Tickets.Registro ||
+                  Page is WebApp_Tickets.Detalle ||
+                  Page is WebApp_Tickets.Terminos ||
+                  Page is WebApp_Tickets.Contacto))
+            {
+                if (Session["usuario"] == null)
+                    Response.Redirect("Login.aspx", false);
+            }
+
             if (!IsPostBack)
             {
                 actualizarBtn();
@@ -23,11 +35,17 @@ namespace WebApp_Tickets
             {
                 SignIn.Text = "SIGN OUT";
                 Registrarme.Visible = false;
+
+                lbl_Mail.Text = Session["Email"].ToString();
+                lbl_Mail.Visible = true;
             }
             else
             {
                 SignIn.Text = "SIGN IN";
                 Registrarme.Visible = true;
+
+                lbl_Mail.Text = "";
+                lbl_Mail.Visible = false;
             }
         }
 

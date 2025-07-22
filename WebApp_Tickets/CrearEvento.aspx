@@ -52,11 +52,12 @@
                 </div>
                 
                 <div class="mb-3">
-                    <input type="file" id="txtImagen" runat="server" class="form-control"/>
+                    <asp:FileUpload ID="txtImagen" runat="server" CssClass="form-control"/>
                 </div>
 
                 <div class="mb-3 text-center">
-                    <asp:Button ID="btn_registrar" runat="server" Text="Crear Evento" class="btn btn-primary col-12"  OnClick="ClickCrearEvento"/>
+                    <asp:Button ID="btn_registrar" runat="server" Text="Crear Evento" class="btn btn-primary col-12 mb-1"  OnClick="ClickCrearEvento"/>
+                    <asp:Button ID="btn_cancelar" runat="server" Text="Cancelar" class="btn btn-secondary col-12" OnClick="btn_Cancelar" />
                 </div>
 
             </article>

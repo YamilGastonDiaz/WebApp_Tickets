@@ -17,13 +17,15 @@
 
         <!--principio tiltulo del evento-->
         <section class="row">
-            <asp:Repeater ID="rpt_Name" runat="server">
+            <asp:Repeater ID="rpt_NameYcantidad" runat="server">
                 <ItemTemplate>
-                    <h2 class="ms-3"><i><%# Eval("name") %></i></h2>
+                    <h2 class="ms-3">
+                        <i><%# Eval("name") %></i>
+                        <span class="fs-6 text-success">(Entradas disponibles: <%# Eval("totalTickt") %>)</span>
+                    </h2>
                 </ItemTemplate>
             </asp:Repeater>
         </section>
-        <!--fin titulo del evento-->
 
         <!--principio hora y fecha del evento-->
         <section class="row">
@@ -104,15 +106,15 @@
             <div class="container d-flex flex-lg-colum flex-md-colum flex-column">
                 <div class="form-check mt-3">
                     <asp:CheckBox ID="checkCondiciones" class="form-check-label" runat="server" />
-                    <label for="check_TC" class="form-check-label">Acepto los <a class="color-tyc" href="#">términos y condiciones</a>.</label>
+                    <label for="check_TC" class="form-check-label">Acepto los <a class="color-tyc" href="Terminos.aspx">términos y condiciones</a>.</label>
                 </div>
                 <asp:Label runat="server" ID="lbl_Chek" Text="" CssClass="ms-4 p-1" Visible="false" ForeColor="Red" />
                 <br />
 
                 <div class="d-grid m-3">
-                    <asp:Button ID="btn_Comprar" runat="server" Text="PAGAR" CssClass="btn btn-mercado btn-primary col-12 col-md-4 col-lg-4 " OnClick="Pagar_click" />
+                    <asp:Button ID="btn_Comprar" runat="server" Text="PAGAR" CssClass="btn btn-mercado btn-warning col-12 col-md-4 col-lg-4 " OnClick="Pagar_click" />
                 </div>
-              
+
             </div>
             <p class="fs-5 text-center">*El máximo permitido por compra es de 5 entradas. Si desea adquirir más, por favor repita  la operación.</p>
             <!--fin btn compra-->

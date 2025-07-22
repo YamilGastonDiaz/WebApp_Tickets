@@ -213,13 +213,13 @@ namespace WebApp_Tickets
         protected global::System.Web.UI.WebControls.TextBox txtPassAdmin;
 
         /// <summary>
-        /// Control lbl_PassUser.
+        /// Control lbl_PassAdmin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_PassUser;
+        protected global::System.Web.UI.WebControls.Label lbl_PassAdmin;
 
         /// <summary>
         /// Control txtxPassNuevoAdmin.

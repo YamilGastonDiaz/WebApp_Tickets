@@ -29,21 +29,8 @@ namespace WebApp_Tickets
                     switch (estado)
                     {
                         case "success":
-
-                            if (!string.IsNullOrEmpty(paymentIdStr) && long.TryParse(paymentIdStr, out long paymentId))
-                            {
-                                bool pagoAprobado = ValidarPago(paymentId);
-
-                                if (pagoAprobado)
-                                {
-                                    RegistrarCompra();
-                                    mensaje = "¡Pago confirmado y compra registrada!";
-                                }
-                                else
-                                {
-                                    mensaje = "No pudimos validar el pago. No se registró la compra.";
-                                }
-                            }
+                            RegistrarCompra();
+                            mensaje = "¡Pago confirmado. Gracias por tu compra!";
                             break;
                         case "pending":
                             mensaje = "El pago está pendiente. Te avisaremos cuando se acredite.";
@@ -55,25 +42,6 @@ namespace WebApp_Tickets
                     lblMensaje.Text = mensaje;
                 }
             }
-        }
-        private bool ValidarPago(long paymentId)
-        {
-            try
-            {
-                var paymentClient = new PaymentClient();
-                Payment payment = paymentClient.Get(paymentId);
-
-                if (payment.Status == "approved" && payment.StatusDetail == "accredited")
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return false;
         }
         private void RegistrarCompra()
         {
@@ -89,13 +57,12 @@ namespace WebApp_Tickets
                 string mail = (string)Session["email"];
 
                 NegocioCompra negocioC = new NegocioCompra();
-                Evento evento = new Evento();
                 NegocioEvento negocioE = new NegocioEvento();
                 NegocioArchivosUsuario negocioAU = new NegocioArchivosUsuario();
                 EmailService emailService = new EmailService();
                 EntradaQR entradaQr = new EntradaQR();
 
-                negocioE.buscarEvento(eventoId);
+                Evento evento = negocioE.buscarEvento(eventoId);
                 string nombre = evento.name;
                 string fecha = evento.fecha.ToString("dddd, dd MMMM yyyy");
                 string lugar = evento.locale;

@@ -105,7 +105,17 @@ namespace WebApp_Tickets
 
                 int cantidad = int.Parse(lbl_Cantidad.Text);
 
-                if (AceptarTerminos() && cantidad > 0)
+                if (!AceptarTerminos())
+                {
+                    lblMensaje.Text = "Debe aceptar los términos y condiciones.";
+                    lblMensaje.Visible = true;
+                }
+                else if (cantidad <= 0)
+                {
+                    lblMensaje.Text = "Debes seleccionar al menos una entrada.";
+                    lblMensaje.Visible = true;
+                }
+                else
                 {
                     int idEvento = (int)Session["id"];
                     Evento evento = negocioE.buscarEvento(idEvento);
@@ -116,15 +126,10 @@ namespace WebApp_Tickets
 
                     Session["Cantidad"] = cantidad;
                     Session["PrecioUnitario"] = precioUnitario;
-                    
+
                     string checkoutUrl = negocioMP.CrearPreferencia(nombre, precioUnitario, cantidad);
 
                     Response.Redirect(checkoutUrl, false);
-                }
-                else
-                {
-                    lbl_Chek.Text = "Debe aceptar términos y condiciones";
-                    lbl_Chek.Visible = true;
                 }
             }
             catch (Exception ex)

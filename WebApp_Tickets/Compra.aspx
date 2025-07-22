@@ -108,7 +108,7 @@
                     <asp:CheckBox ID="checkCondiciones" class="form-check-label" runat="server" />
                     <label for="check_TC" class="form-check-label">Acepto los <a class="color-tyc" href="Terminos.aspx">términos y condiciones</a>.</label>
                 </div>
-                <asp:Label runat="server" ID="lbl_Chek" Text="" CssClass="ms-4 p-1" Visible="false" ForeColor="Red" />
+                <asp:Label runat="server" ID="lblMensaje" Text="" CssClass="ms-4 p-1" Visible="false" ForeColor="Red" />
                 <br />
 
                 <div class="d-grid m-3">

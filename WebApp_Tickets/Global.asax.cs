@@ -19,7 +19,7 @@ namespace WebApp_Tickets
         {
             try
             {
-                MercadoPagoConfig.AccessToken = "";
+                MercadoPagoConfig.AccessToken = ConfigurationManager.AppSettings["MP_ACCESS_TOKEN"];
             }
             catch (Exception ex)
             {

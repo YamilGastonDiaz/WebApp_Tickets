@@ -87,7 +87,7 @@
                         <div class="row justify-content-center">
                             <div class="col-8">
                                 <div class="mb-3">
-                                    <asp:TextBox runat="server" ID="txtPassUser" CssClass="form-control" placeholder="Contraseña" TextMode="Password" />
+                                    <asp:TextBox runat="server" ID="txtPassUser" CssClass="form-control" placeholder="Contraseña Nueva" TextMode="Password" />
                                     <asp:Label ID="lbl_PassUser" runat="server" Text="" Visible="false" ForeColor="Red"></asp:Label>
                                 </div>
 

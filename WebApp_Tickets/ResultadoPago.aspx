@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <section class="row">
-            <article class="col-12">
+            <article class="col-12 text-center fs-3">
                 <asp:Label ID="lblMensaje" runat="server" Text="Label"></asp:Label>
             </article>
         </section>

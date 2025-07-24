@@ -7,7 +7,7 @@
     <div class="container">
         <section class="row">
             <article class="col-12">
-                <h2>Mis Tickets</h2>
+                <h1><i>Mis Tickets</i></h1>
                 <hr />
             </article>
         </section>

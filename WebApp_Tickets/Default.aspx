@@ -45,7 +45,7 @@
             <article class="col-10">
                <div class="d-flex p-2">
                     <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Buscar" />
-                    <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-secondary m-2" Text="Buscar" OnClick="btnBuscar_Click" />
+                    <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-secondary mt-2" Text="Buscar" OnClick="btnBuscar_Click" />
                </div>
             </article>
         </section>
@@ -54,7 +54,7 @@
         <!--principio tiltulo-->
         <section class="row">
             <article class="col-12">
-                <h2>Todos los eventos en <b>Tu Marca</b></h2>
+                <h1><i>Todos los eventos en <b>Tu Marca</b></i></h1>
                 <hr />
             </article>
         </section>

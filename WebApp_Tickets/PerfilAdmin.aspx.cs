@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,6 +15,8 @@ namespace WebApp_Tickets
         NegocioUsuario negocio = new NegocioUsuario();
         NegocioEvento negocioE = new NegocioEvento();
         NegocioUsuario negocioU = new NegocioUsuario();
+        NegocioEstadisticas negocioEstadistica = new NegocioEstadisticas();
+        Validaciones validar = new Validaciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -23,6 +26,10 @@ namespace WebApp_Tickets
 
                 GridViewEventos.DataSource = negocioE.listar();
                 GridViewEventos.DataBind();
+
+                CargarTarjetas();
+                CargarRankingEventos();
+                CargarRankingUsuarios();
 
                 if (Session["Usuario"] != null)
                 {
@@ -102,7 +109,45 @@ namespace WebApp_Tickets
 
         protected void ModificarPassAdminBtn(object sender, EventArgs e)
         {
-            
+            int id = (int)Session["Usuario_Id"];
+            Usuario user = negocio.Obtener(id);
+
+            if (user != null)
+            {
+                string pass1 = txtPassAdmin.Text;
+                string pass2 = txtPassNuevoAdmin.Text;
+
+                lblMensajePassword.Visible = true;
+
+                if (string.IsNullOrWhiteSpace(pass1) || string.IsNullOrWhiteSpace(pass2))
+                {
+                    lblMensajePassword.Text = "Debe completar ambos campos.";
+                    return;
+                }
+
+                if (pass1 != pass2)
+                {
+                    lblMensajePassword.Text = "Las contraseñas no coinciden.";
+                    return;
+                }
+
+                bool esValida = validar.ValidarPassword(pass1);
+
+                if (!esValida)
+                {
+                    lblMensajePassword.Text = "La contraseña debe tener entre 6 y 12 caracteres, una mayúscula y un número.";
+                    return;
+                }
+                Usuario passAdmin = new Usuario
+                {
+                    password = pass1,
+                    idUser = id
+                };
+                negocio.ModificarPass(passAdmin);
+
+                lblMensajePassword.ForeColor = System.Drawing.Color.Green;
+                lblMensajePassword.Text = "Contraseña modificada correctamente.";
+            }
         }
 
         protected void CrearEvento(object sender, EventArgs e) 
@@ -137,6 +182,49 @@ namespace WebApp_Tickets
             {
                 throw ex;
             }
+        }
+
+        protected void FiltrarAnio(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void BuscarEvento(object sender, EventArgs e)
+        {
+            string nombre = txtEventoBuscar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                
+                var detalle = negocioEstadistica.ObtenerDetalleEvento(nombre);
+
+                if (detalle != null)
+                {
+                    GridViewDetalleEvento.DataSource = new List<DetalleEvento> { detalle };
+                    GridViewDetalleEvento.DataBind();
+                }
+                else
+                {
+                    GridViewDetalleEvento.DataSource = null;
+                    GridViewDetalleEvento.DataBind();
+                }
+            }
+        }
+        private void CargarTarjetas()
+        {
+            lblUsuariosActivos.Text = negocioEstadistica.UsuariosActivos().ToString();
+            lblUsuariosBaja.Text = negocioEstadistica.UsuariosDadosDeBaja().ToString();
+            lblRecaudacionTotal.Text = "$" + negocioEstadistica.RecaudacionTotal().ToString("N2");
+        }
+        private void CargarRankingEventos()
+        {
+            GridViewRankingEventos.DataSource = negocioEstadistica.ObtenerRankingEventos();
+            GridViewRankingEventos.DataBind();
+        }
+        private void CargarRankingUsuarios()
+        {
+            GridViewRankingUsuarios.DataSource = negocioEstadistica.ObtenerRankingUsuarios();
+            GridViewRankingUsuarios.DataBind();
         }
     }
 }

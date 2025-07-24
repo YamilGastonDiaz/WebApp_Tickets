@@ -200,6 +200,29 @@ namespace Negocio
             }
         }
 
+        public void ModificarPass(Usuario usuario)
+        {
+            try
+            {
+                //Hashear la contraseña antes de guardarla en la base de datos
+                string hashedPassword = passHasher.HashPassword(usuario, usuario.password);
+
+                datos.setearConsulta("UPDATE Usuarios SET Contrasenia = @Contrasenia WHERE Usuario_Id = @id");
+                datos.setearParametro("@Contrasenia", hashedPassword);
+                datos.setearParametro("id", usuario.idUser);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConnection();
+            }
+        }
+
         public Usuario Obtener(int id)
         {
             Usuario user = new Usuario();

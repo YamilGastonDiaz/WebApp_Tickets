@@ -12,7 +12,7 @@ namespace WebApp_Tickets
     public partial class PerfilUser : System.Web.UI.Page
     {
         NegocioUsuario negocio = new NegocioUsuario();
-
+        Validaciones validar = new Validaciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) 
@@ -85,7 +85,46 @@ namespace WebApp_Tickets
 
         protected void ModificarPass_btn(object sender, EventArgs e)
         {
+            int id = (int)Session["Usuario_Id"];
+            Usuario user = negocio.Obtener(id);
 
+            if (user != null) 
+            {
+                string pass1 = txtPassUser.Text;
+                string pass2 = txtPassNuevo.Text;
+
+                lblMensajePassword.Visible = true;
+
+                if (string.IsNullOrWhiteSpace(pass1) || string.IsNullOrWhiteSpace(pass2))
+                {
+                    lblMensajePassword.Text = "Debe completar ambos campos.";
+                    return;
+                }
+
+                if (pass1 != pass2)
+                {
+                    lblMensajePassword.Text = "Las contraseñas no coinciden.";
+                    return;
+                }
+
+                bool esValida = validar.ValidarPassword(pass1);
+
+                if (!esValida)
+                {
+                    lblMensajePassword.Text = "La contraseña debe tener entre 6 y 12 caracteres, una mayúscula y un número.";
+                    return;
+                }
+
+                Usuario passUser = new Usuario
+                {
+                   password = pass1,
+                   idUser = id
+                };
+                negocio.ModificarPass(passUser);
+
+                lblMensajePassword.ForeColor = System.Drawing.Color.Green;
+                lblMensajePassword.Text = "Contraseña modificada correctamente.";
+            }
         }
 
         protected void ClickEliminarUser(object sender, EventArgs e) 

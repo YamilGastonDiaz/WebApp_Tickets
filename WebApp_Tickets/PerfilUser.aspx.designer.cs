@@ -195,31 +195,22 @@ namespace WebApp_Tickets
         protected global::System.Web.UI.WebControls.TextBox txtPassUser;
 
         /// <summary>
-        /// Control lbl_PassUser.
+        /// Control txtPassNuevo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_PassUser;
+        protected global::System.Web.UI.WebControls.TextBox txtPassNuevo;
 
         /// <summary>
-        /// Control txtxPassNuevo.
+        /// Control lblMensajePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtxPassNuevo;
-
-        /// <summary>
-        /// Control lbl_PassNuevo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_PassNuevo;
+        protected global::System.Web.UI.WebControls.Label lblMensajePassword;
 
         /// <summary>
         /// Control btn_ModificarPass.

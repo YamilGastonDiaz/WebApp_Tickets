@@ -38,7 +38,14 @@ namespace Negocio
             email.Subject = asutno;
             email.Body = cuerpo;
         }
-                
+        public void MensajeContacto(string nombre, string emailRemitente, string mensaje)
+        { 
+            email = new MailMessage();
+            email.From = new MailAddress("noreponder@tuentrada.com");
+            email.To.Add("devops.codetesting@gmail.com");
+            email.Subject = "Nuevo mensaje de contacto";
+            email.Body = $"Nombre: {nombre}\nEmail: {emailRemitente}\nMensaje:\n{mensaje}";
+        }
         public void EnviarEmail()
         {
             try

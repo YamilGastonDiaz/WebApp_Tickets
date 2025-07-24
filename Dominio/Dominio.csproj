@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="ArchivosUsuario.cs" />
     <Compile Include="Compra.cs" />
+    <Compile Include="DetalleEvento.cs" />
     <Compile Include="Evento.cs" />
+    <Compile Include="EventoRanking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="UsuarioRanking.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

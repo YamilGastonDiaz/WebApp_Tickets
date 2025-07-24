@@ -213,31 +213,22 @@ namespace WebApp_Tickets
         protected global::System.Web.UI.WebControls.TextBox txtPassAdmin;
 
         /// <summary>
-        /// Control lbl_PassAdmin.
+        /// Control txtPassNuevoAdmin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_PassAdmin;
+        protected global::System.Web.UI.WebControls.TextBox txtPassNuevoAdmin;
 
         /// <summary>
-        /// Control txtxPassNuevoAdmin.
+        /// Control lblMensajePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtxPassNuevoAdmin;
-
-        /// <summary>
-        /// Control lbl_PassNuevo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_PassNuevo;
+        protected global::System.Web.UI.WebControls.Label lblMensajePassword;
 
         /// <summary>
         /// Control btn_ModificarPass.
@@ -301,5 +292,95 @@ namespace WebApp_Tickets
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View ViewEstadisticas;
+
+        /// <summary>
+        /// Control lblUsuariosActivos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsuariosActivos;
+
+        /// <summary>
+        /// Control lblRecaudacionTotal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRecaudacionTotal;
+
+        /// <summary>
+        /// Control lblUsuariosBaja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsuariosBaja;
+
+        /// <summary>
+        /// Control txtAnio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAnio;
+
+        /// <summary>
+        /// Control btnFiltrarAnio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltrarAnio;
+
+        /// <summary>
+        /// Control GridViewRankingEventos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewRankingEventos;
+
+        /// <summary>
+        /// Control GridViewRankingUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewRankingUsuarios;
+
+        /// <summary>
+        /// Control txtEventoBuscar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEventoBuscar;
+
+        /// <summary>
+        /// Control btnBuscarEvento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBuscarEvento;
+
+        /// <summary>
+        /// Control GridViewDetalleEvento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewDetalleEvento;
     }
 }

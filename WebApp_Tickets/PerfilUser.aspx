@@ -88,12 +88,14 @@
                             <div class="col-8">
                                 <div class="mb-3">
                                     <asp:TextBox runat="server" ID="txtPassUser" CssClass="form-control" placeholder="Contraseña Nueva" TextMode="Password" />
-                                    <asp:Label ID="lbl_PassUser" runat="server" Text="" Visible="false" ForeColor="Red"></asp:Label>
                                 </div>
 
                                 <div class="mb-3">
-                                    <asp:TextBox runat="server" ID="txtxPassNuevo" CssClass="form-control" placeholder="Contraseña Nueva" TextMode="Password" />
-                                    <asp:Label ID="lbl_PassNuevo" runat="server" Text="" Visible="false" ForeColor="Red"></asp:Label>
+                                    <asp:TextBox runat="server" ID="txtPassNuevo" CssClass="form-control" placeholder="Contraseña Nueva" TextMode="Password" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <asp:Label ID="lblMensajePassword" runat="server" Text="" Visible="false" ForeColor="Red"></asp:Label>
                                 </div>
 
                                 <div class="mb-3 text-center">

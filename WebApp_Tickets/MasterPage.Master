@@ -94,7 +94,7 @@
                     <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook fs-3"></i></a>
                     <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter fs-3"></i></a>
                     <a href="https://instagram.com" target="_blank"><i class="bi bi-instagram fs-3"></i></a>
-                    <a href="https://api.whatsapp.com/send?phone=+545844510" target="_blank"><i class="bi bi-whatsapp fs-3"></i></a>
+                    <a href="https://api.whatsapp.com" target="_blank"><i class="bi bi-whatsapp fs-3"></i></a>
                 </nav>
                 <small class="text-span">&copy; Proyecto de Laboratorio 3. 2024</small> <b>/</b>
                 <a href="Terminos.aspx">LEER TÉRMINOS Y CONDICIONES</a>

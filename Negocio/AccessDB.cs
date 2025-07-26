@@ -16,12 +16,10 @@ namespace Negocio
         private SqlConnection conection;
         private SqlCommand command;
         private SqlDataReader reader;
-
         public SqlDataReader Lector
         {
             get { return reader; }
         }
-
         public AccessDB()
         {
             // Usar la cadena de conexión desde el archivo de configuración
@@ -29,26 +27,22 @@ namespace Negocio
             conection = new SqlConnection(cadenaConection);
             command = new SqlCommand();
         }
-
         public void setearConsulta(string consulta)
         {
             command.Parameters.Clear();
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = consulta;
         }
-
         public void setearParametro(string nombre, object valor) 
         {
             command.Parameters.AddWithValue(nombre, valor);
         }
-
         public void setearProcedure(string SP)
         {
             command.Parameters.Clear();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = SP;
         }
-
         public void ejecutarAccion()
         {
             command.Connection = conection;
@@ -66,7 +60,6 @@ namespace Negocio
                 conection.Close();
             }
         }
-
         public int ejecutarScalar()
         {
             command.Connection = conection;
@@ -84,7 +77,6 @@ namespace Negocio
                 conection.Close();
             }
         }
-
         public void ejecutarRead()
         {
             command.Connection = conection;
@@ -98,7 +90,6 @@ namespace Negocio
                 throw ex;
             }
         }
-
         public void cerrarConnection()
         {
             if (reader != null)

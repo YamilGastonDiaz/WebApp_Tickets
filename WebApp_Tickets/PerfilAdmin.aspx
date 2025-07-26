@@ -213,7 +213,7 @@
                                 <h4 class="m-3"><i>Recaudacion</i></h4>
 
                                 <div class="mb-3 d-flex">
-                                    <asp:TextBox ID="txtAnio" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Ej: 2025" />
+                                    <asp:TextBox ID="txtAnio" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Ingrese el año Ej: 2025" />
                                     <asp:Button ID="btnFiltrarAnio" runat="server" Text="Filtrar" CssClass="btn btn-secondary mt-2" OnClick="FiltrarAnio" />
                                 </div>
 
@@ -221,7 +221,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
-                                            <div class="card-header">NN</div>
+                                            <div class="card-header">Recaudacion mensual</div>
                                             <div class="card-body">
                                                 <canvas id="barChart"></canvas>
                                             </div>
@@ -251,9 +251,10 @@
                                 </asp:GridView>
                             </div>
 
-                            <label for="txtEvento" class="form-label">Ingresa nombre del evento:</label>
+                            <h4 class="m-3"><i>Detalle por Evento</i></h4>
+
                             <div class="d-flex p-2">
-                                <asp:TextBox ID="txtEventoBuscar" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Nombre del evento" />
+                                <asp:TextBox ID="txtEventoBuscar" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Ingrese nombre del evento" />
                                 <asp:Button ID="btnBuscarEvento" runat="server" Text="Buscar" CssClass="btn btn-secondary mt-2" OnClick="BuscarEvento" />
                             </div>
 
@@ -269,18 +270,23 @@
                                 </Columns>
                             </asp:GridView>
                             </div>
+
+                            <asp:Literal ID="litDatosRecaudacion" runat="server" EnableViewState="false" />
                             <!-- Script para gráficos con Chart.js -->
                             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                             <script>
                                 // Gráfico de Barras
                                 var ctxBar = document.getElementById('barChart').getContext('2d');
+
+                                var datos = typeof datosRecaudacion !== 'undefined' ? datosRecaudacion : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
                                 var barChart = new Chart(ctxBar, {
                                     type: 'bar',
                                     data: {
                                         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Nobiembre', 'Diciembre'],
                                         datasets: [{
-                                            label: 'NN',
-                                            data: [3456, 7890, 14567, 2345, 19876, 5678, 12345, 9876, 15000, 2001, 17500, 3000],
+                                            label: 'Recaudación mensual ($)',
+                                            data: datos,
                                             backgroundColor: 'rgba(54, 162, 235, 0.5)',
                                             borderColor: 'rgba(54, 162, 235, 1)',
                                             borderWidth: 1

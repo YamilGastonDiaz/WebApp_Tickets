@@ -13,7 +13,6 @@ namespace Negocio
     {
         public string CrearPreferencia(string titulo, decimal precio, int cantiad)
         {
-            // Crea el objeto de request de la preference
             var request = new PreferenceRequest
             {
                 Items = new List<PreferenceItemRequest>
@@ -39,7 +38,6 @@ namespace Negocio
                 ExpirationDateTo = DateTime.Now.AddMinutes(10)
             };
 
-            // Crea la preferencia usando el client
             var client = new PreferenceClient();
             var preference = client.Create(request);            
 

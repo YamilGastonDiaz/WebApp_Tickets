@@ -37,7 +37,7 @@ namespace Negocio
         {
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM Usuarios WHERE Estado = 1");
+                datos.setearConsulta("SELECT COUNT(*) FROM Usuarios WHERE Estado = 1 AND TipoUsuario = 2");
                 datos.ejecutarRead();
 
                 if (datos.Lector.Read())
@@ -75,6 +75,22 @@ namespace Negocio
             finally
             {
                 datos.cerrarConnection();
+            }
+        }
+        public List<decimal> ObtenerRecaudacionMensual(int anio)
+        {
+            NegocioCompra negocioCompra = new NegocioCompra();
+            List<Compra> compras = negocioCompra.ListarCompra(anio);
+
+            try
+            {
+                decimal[] meses = CalcularRecaudacionMensual(compras);
+
+                return meses.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         public List<EventoRanking> ObtenerRankingEventos()
@@ -169,6 +185,21 @@ namespace Negocio
                 datos.cerrarConnection();
             }
             return null;
+        }
+        private decimal[] CalcularRecaudacionMensual(List<Compra> compras)
+        {
+            decimal[] meses = new decimal[12];
+
+            if (compras == null || compras.Count == 0)
+                return meses;
+
+            foreach (var compra in compras)
+            {
+                int mes = compra.fecha.Month - 1;
+                meses[mes] += compra.monto;
+            }
+
+            return meses;
         }
     }
 }

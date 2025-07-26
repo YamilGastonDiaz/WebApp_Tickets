@@ -22,8 +22,8 @@ namespace WebApp_Tickets
                 rpt_Eventos.DataSource = listar;
                 rpt_Eventos.DataBind();
 
-                rpt_Banner.DataSource = listar;
-                rpt_Banner.DataBind();
+                //rpt_Banner.DataSource = listar;
+                //rpt_Banner.DataBind();
             }
         }
         protected void btnBuscar_Click(object sender, EventArgs e)

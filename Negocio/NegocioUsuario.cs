@@ -12,12 +12,10 @@ namespace Negocio
     {
         private AccessDB datos = new AccessDB();
         private readonly PasswordHasher<Usuario> passHasher;
-
         public NegocioUsuario()
         {
             passHasher = new PasswordHasher<Usuario>();
         }
-
         public List<Usuario> listarUser()
         {
             List<Usuario> lista = new List<Usuario>();
@@ -53,68 +51,12 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
-        public void VerificarYRegistrarAdmin()
-        {
-            try
-            {
-                // Verificar si ya existe un administrador en la base de datos
-                datos.setearConsulta("SELECT COUNT(*) FROM Usuarios WHERE TipoUsuario = 1");
-                int count = (int)datos.ejecutarScalar();
-
-                // Si no existe un administrador, proceder a crear uno
-                if (count == 0)
-                {
-                    string adminEmail = "admin@dominio.com";  // Correo del admin
-                    string adminPassword = "ContraseniaSeguraAdmin";  // Contraseña del admin
-
-                    // Crear un usuario de tipo admin
-                    Usuario adminUsuario = new Usuario
-                    {
-                        name = "Admin",
-                        lastname = "Admin",
-                        dni = "12345678",  // Asegúrate de asignar un DNI válido
-                        email = adminEmail,
-                        numerphone = "12345678",  // Teléfono de contacto
-                        birthdate = DateTime.Now.Date,  // Fecha de nacimiento actual
-                        password = adminPassword,  // Contraseña que será hasheada
-                        TipoUser = (TipoUser)1
-                    };
-
-                    // Hashear la contraseña antes de guardarla
-                    var passHasher = new PasswordHasher<Usuario>();
-                    string hashedPassword = passHasher.HashPassword(adminUsuario, adminPassword);
-
-                    // Insertar el admin en la base de datos
-                    datos.setearConsulta("INSERT INTO Usuarios (Nombre, Apellido, Dni, Email, Telefono, FechaNacimiento, Contrasenia, TipoUsuario) VALUES (@nombre, @apellido, @dni, @email, @telefono, @fechaNacimiento, @pass, @tipo)");
-                    datos.setearParametro("@nombre", adminUsuario.name);
-                    datos.setearParametro("@apellido", adminUsuario.lastname);
-                    datos.setearParametro("@dni", adminUsuario.dni);
-                    datos.setearParametro("@email", adminUsuario.email);
-                    datos.setearParametro("@telefono", adminUsuario.numerphone);
-                    datos.setearParametro("@fechaNacimiento", adminUsuario.birthdate);
-                    datos.setearParametro("@pass", hashedPassword);
-                    datos.setearParametro("tipo", (int)adminUsuario.TipoUser);
-                    datos.ejecutarAccion();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConnection();
-            }
-        }
-
         public int Registro(Usuario usuario)
         {
             try
             {
                 //Hashear la contraseña antes de guardarla en la base de datos
                 string hashedPassword = passHasher.HashPassword(usuario, usuario.password);
-
 
                 datos.setearProcedure("SP_INSERTAR_USER");
 
@@ -138,7 +80,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public bool Logear(Usuario usuario)
         {
             try
@@ -174,7 +115,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public void Modificar(Usuario usuario) 
         {
             try
@@ -199,7 +139,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public void ModificarPass(Usuario usuario)
         {
             try
@@ -222,7 +161,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public Usuario Obtener(int id)
         {
             Usuario user = new Usuario();
@@ -255,7 +193,6 @@ namespace Negocio
 
             return user;
         }
-
         public void Baja(int id) 
         {
             try

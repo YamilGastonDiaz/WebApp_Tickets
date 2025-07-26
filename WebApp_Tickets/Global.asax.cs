@@ -29,8 +29,7 @@ namespace WebApp_Tickets
                
         protected void Session_Start(object sender, EventArgs e)
         {
-            NegocioUsuario negocio = new NegocioUsuario();
-            negocio.VerificarYRegistrarAdmin();
+
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

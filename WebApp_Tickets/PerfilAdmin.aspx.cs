@@ -186,7 +186,11 @@ namespace WebApp_Tickets
 
         protected void FiltrarAnio(object sender, EventArgs e)
         {
-
+            int anio;
+            if (int.TryParse(txtAnio.Text, out anio))
+            {
+                CargarGrafico(anio);
+            }
         }
 
         protected void BuscarEvento(object sender, EventArgs e)
@@ -214,7 +218,14 @@ namespace WebApp_Tickets
         {
             lblUsuariosActivos.Text = negocioEstadistica.UsuariosActivos().ToString();
             lblUsuariosBaja.Text = negocioEstadistica.UsuariosDadosDeBaja().ToString();
-            lblRecaudacionTotal.Text = "$" + negocioEstadistica.RecaudacionTotal().ToString("N2");
+            lblRecaudacionTotal.Text = "$ " + negocioEstadistica.RecaudacionTotal().ToString("N2");
+        }
+        private void CargarGrafico(int anio)
+        {
+            var datos = negocioEstadistica.ObtenerRecaudacionMensual(anio);
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(datos);
+
+            litDatosRecaudacion.Text = $"<script>var datosRecaudacion = {json};</script>";
         }
         private void CargarRankingEventos()
         {

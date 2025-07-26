@@ -13,7 +13,6 @@ namespace Negocio
 
         public void Agregar(ArchivosUsuario archivosUsuario)
         {
-
             try
             {
                 datos.setearConsulta("INSERT INTO ArchivosUsuario (Id_Usuario, Id_Evento, NombreArchivo) " +
@@ -34,7 +33,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public List<ArchivosUsuario> listarPdf(int usuario)
         {
             List<ArchivosUsuario> listarArchivo = new List<ArchivosUsuario>();
@@ -69,8 +67,6 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
-
         }
-
     }
 }

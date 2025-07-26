@@ -69,12 +69,12 @@
             <asp:Repeater ID="rpt_Eventos" runat="server" OnItemDataBound="rpt_DataBoundEventos">
                 <ItemTemplate>
                     <article class="col-12 col-md-6 col-lg-3 d-flex">
-                        <div class="card mx-auto mb-3" style="width: 18rem;">
+                        <div class="card mx-auto mb-3 flex-fill" style="width: 18rem;">
                             <img src='<%# ResolveUrl("~/Img/ImgEvento/" + Eval("image")) %>' class="card-img-top" alt="...">
                             <div class="card-body bg-color">
-                                <span>show</span>
-                                <h4 class="card-title"><b><%# Eval("name") %></b></h4>
-                                <span class="mb-1">
+                                <span class="mt-1 text-muted small">evento</span>
+                                <h6 class="card-title"><b><%# Eval("name") %></b></h6>
+                                <span class="mb-1 text-muted small">
                                     <b>
                                         <%# Eval("fecha", "{0:dd}") %> de
                                         <%# Eval("fecha", "{0:MMMM}") %> /

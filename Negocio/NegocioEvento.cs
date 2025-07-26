@@ -11,7 +11,6 @@ namespace Negocio
     public class NegocioEvento
     {
         private AccessDB datos = new AccessDB();
-      
         public List<Evento> listar()
         {
             List<Evento> lista = new List<Evento>();
@@ -73,7 +72,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public Evento Obtener(int id)
         {
             Evento evento = new Evento();
@@ -107,8 +105,6 @@ namespace Negocio
 
             return evento;
         }
-
-
         public void Agregar(Evento evento)
         {
             
@@ -138,7 +134,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public void Modificar(Evento evento)
         {
             try
@@ -166,7 +161,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
         }
-
         public void Baja(int id)
         {
             try

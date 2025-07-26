@@ -239,8 +239,17 @@
     <Content Include="Default.aspx" />
     <Content Include="Compra.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Img\ImgEvento\davidbowie.jpg" />
+    <Content Include="Img\ImgEvento\janisjoplin.jpg" />
+    <Content Include="Img\ImgEvento\jimihendrix.jpg" />
+    <Content Include="Img\ImgEvento\joydivision.jpg" />
+    <Content Include="Img\ImgEvento\neworder.jpg" />
     <Content Include="Img\ImgEvento\No-imge.jpg" />
     <Content Include="Img\ImgEvento\ramones.jpg" />
+    <Content Include="Img\ImgEvento\sexpistols.jpg" />
+    <Content Include="Img\ImgEvento\strokes.jpg" />
+    <Content Include="Img\ImgEvento\theclash.jpg" />
+    <Content Include="Img\ImgEvento\thecure.jpg" />
     <Content Include="Img\mercadopago.png" />
     <Content Include="Login.aspx" />
     <Content Include="ModificarEvento.aspx" />
@@ -363,7 +372,6 @@
   <ItemGroup>
     <Folder Include="Entradas\PDFs\" />
     <Folder Include="Entradas\QRs\" />
-    <Folder Include="Img\ImgUser\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">

@@ -13,7 +13,6 @@ namespace Negocio
     {
         private MailMessage email;
         private SmtpClient server;
-
         public void AgregarAdjunto(Attachment adjunto)
         {
             email.Attachments.Add(adjunto);
@@ -21,7 +20,6 @@ namespace Negocio
 
         private readonly string myEmail = "devops.codetesting@gmail.com";
         private readonly string myPassword = "fngv fkzp wwyq canu";
-
         public EmailService()
         {
             server = new SmtpClient();
@@ -58,6 +56,5 @@ namespace Negocio
                 throw ex;
             }
         }
-
     }
 }

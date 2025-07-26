@@ -37,7 +37,6 @@ namespace Negocio
 
             return rutaQR;
         }
-
         public string GenerarPDF(string nombre, string fecha, string lugar, string direccion, string codigo, string rutaBase)
         {
             string carpetaPDF = Path.Combine(rutaBase, "PDFs");

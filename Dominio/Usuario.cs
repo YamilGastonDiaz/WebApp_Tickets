@@ -25,7 +25,14 @@ namespace Dominio
 
         public Usuario()
         {
-
+            idUser = 0;
+            name = string.Empty;
+            lastname = string.Empty;
+            dni = string.Empty;
+            email = string.Empty;
+            birthdate = DateTime.MinValue;
+            numerphone = string.Empty;
+            password = string.Empty;
         }
 
         public Usuario(string UserE, string pass, int user)

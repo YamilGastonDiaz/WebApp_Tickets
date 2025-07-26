@@ -10,7 +10,7 @@ Proyecto académico desarrollado en equipo para la UTN FRGP. Aplicación web en 
 - Visualización y búsqueda de eventos
 - Compra de entradas
 - Generación de código QR por entrada
-- Envio de entrada por emal (PDF)
+- Envio de entrada por email (PDF)
 
 ---
 

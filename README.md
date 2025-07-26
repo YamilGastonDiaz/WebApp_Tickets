@@ -8,8 +8,9 @@ Proyecto académico desarrollado en equipo para la UTN FRGP. Aplicación web en 
 - Registro e inicio de sesión de usuarios
 - Roles: Administrador y Cliente
 - Visualización y búsqueda de eventos
-- Compra de entradas con carrito
+- Compra de entradas
 - Generación de código QR por entrada
+- Envio de entrada por emal (PDF)
 
 ---
 

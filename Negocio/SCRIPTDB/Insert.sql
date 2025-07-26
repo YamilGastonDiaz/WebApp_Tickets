@@ -3,7 +3,7 @@ USE DB_Tickets
 --Insert eventos Actuales
 INSERT INTO Eventos (Evento_Nombre, Descripcion, Evento_Fecha, Evento_Lugar, Evento_Direccion, TotalEntrada, Precio, Evento_Imagen)
 VALUES 
-('The Ramones', 'Concierto de PunkRock.', '2025-07-24 21:00:00', 'Club Paraguay', 'Av. Marcelo T. de Alvear 651', 100, 75.00, 'ramones.jpg'),
+('The Ramones', 'Concierto de PunkRock.', '2025-07-31 21:00:00', 'Club Paraguay', 'Av. Marcelo T. de Alvear 651', 100, 75.00, 'ramones.jpg'),
 ('The Strokes', 'El mejor rock del año', '2025-08-05 21:00:00', 'Studio Theater', 'Centro, Rosario de Sta. Fe 272', 5000, 150.00, 'strokes.jpg'),
 ('Sex Pistols', 'Una noche con las mejores canciones', '2025-08-15 22:00:00', 'Petalos de Sol', 'Av. Marcelo T. de Alvear 396', 800, 150.00, 'sexpistols.jpg'),
 ('David Bowie', 'Veni a disfrutar de una noche inolvidable', '2025-08-29 20:30:00', 'Chilli Street Club', 'Fructuoso Rivera 273', 1000, 50.00, 'davidbowie.jpg'),

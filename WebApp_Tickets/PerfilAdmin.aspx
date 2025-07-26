@@ -189,7 +189,7 @@
                                             <div class="card-header">Recaudación total</div>
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                     <asp:Label ID="lblRecaudacionTotal" runat="server" CssClass="fw-bold fs-4" />
+                                                    <asp:Label ID="lblRecaudacionTotal" runat="server" CssClass="fw-bold fs-4" />
                                                 </h5>
                                                 <p class="card-text">Monto total recaudado en todos los eventos.</p>
                                             </div>
@@ -217,91 +217,59 @@
                                     <asp:Button ID="btnFiltrarAnio" runat="server" Text="Filtrar" CssClass="btn btn-secondary mt-2" OnClick="FiltrarAnio" />
                                 </div>
 
-                                <!-- Gráficos -->
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-header">Recaudacion mensual</div>
-                                            <div class="card-body">
-                                                <canvas id="barChart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <!-- Recaudacion -->
+                                <div class="col-12 table-fija">
+                                    <asp:GridView ID="GridViewRecaudacion" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False" ShowFooter="True" OnRowDataBound="RecaudacionRowDataBound">
+                                        <Columns>
+                                            <asp:BoundField DataField="mes" HeaderText="Mes" />
+                                            <asp:BoundField DataField="recaudacionMensual" HeaderText="Recaudación Mensual" DataFormatString="{0:C}" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+
+                                <h4 class="m-3"><i>Ranking Eventos</i></h4>
+                                <!--Eventos con más demanda-->
+                                <div class="col-12 table-fija">
+                                    <asp:GridView ID="GridViewRankingEventos" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False">
+                                        <Columns>
+                                            <asp:BoundField DataField="nombreEvento" HeaderText="Eventos" />
+                                            <asp:BoundField DataField="entradasVendidas" HeaderText="Entradas Vendidas" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+
+                                <h4 class="m-3"><i>Ranking Usuarios</i></h4>
+                                <!--(útil para campañas de fidelización).-->
+
+                                <div class="col-12 table-fija">
+                                    <asp:GridView ID="GridViewRankingUsuarios" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False">
+                                        <Columns>
+                                            <asp:BoundField DataField="nombreUsuario" HeaderText="Usuarios" />
+                                            <asp:BoundField DataField="entradasCompradas" HeaderText="Entradas Compradas" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+
+                                <h4 class="m-3"><i>Detalle por Evento</i></h4>
+
+                                <div class="d-flex p-2">
+                                    <asp:TextBox ID="txtEventoBuscar" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Ingrese nombre del evento" />
+                                    <asp:Button ID="btnBuscarEvento" runat="server" Text="Buscar" CssClass="btn btn-secondary mt-2" OnClick="BuscarEvento" />
+                                </div>
+
+                                <div class="col-12 table-fija">
+                                    <asp:GridView ID="GridViewDetalleEvento" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False">
+                                        <Columns>
+                                            <asp:BoundField DataField="nombre" HeaderText="Nombre" />
+                                            <asp:BoundField DataField="fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+                                            <asp:BoundField DataField="totalEntradas" HeaderText="Total Entradas" />
+                                            <asp:BoundField DataField="entradasVendidas" HeaderText="Vendidas" />
+                                            <asp:BoundField DataField="entradasNoVendidas" HeaderText="No Vendidas" />
+                                            <asp:BoundField DataField="recaudacion" HeaderText="Recaudación" DataFormatString="${0:N2}" />
+                                        </Columns>
+                                    </asp:GridView>
                                 </div>
                             </div>
-
-                            <h4 class="m-3"><i>Ranking Eventos</i></h4> <!--Eventos con más demanda-->
-                            <div class="col-12 table-fija">
-                                <asp:GridView ID="GridViewRankingEventos" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False">
-                                    <Columns>
-                                        <asp:BoundField DataField="nombreEvento" HeaderText="Eventos" />
-                                        <asp:BoundField DataField="entradasVendidas" HeaderText="Entradas Vendidas" />
-                                    </Columns>
-                                </asp:GridView>
-                            </div>
-                            
-                            <h4 class="m-3"><i>Ranking Usuarios</i></h4> <!--(útil para campañas de fidelización).-->
-
-                            <div class="col-12 table-fija">
-                                <asp:GridView ID="GridViewRankingUsuarios" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False">
-                                    <Columns>
-                                        <asp:BoundField DataField="nombreUsuario" HeaderText="Usuarios" />
-                                        <asp:BoundField DataField="entradasCompradas" HeaderText="Entradas Compradas" />
-                                    </Columns>
-                                </asp:GridView>
-                            </div>
-
-                            <h4 class="m-3"><i>Detalle por Evento</i></h4>
-
-                            <div class="d-flex p-2">
-                                <asp:TextBox ID="txtEventoBuscar" runat="server" CssClass="form-control form-control-lg me-2 rounded-pill" placeholder="Ingrese nombre del evento" />
-                                <asp:Button ID="btnBuscarEvento" runat="server" Text="Buscar" CssClass="btn btn-secondary mt-2" OnClick="BuscarEvento" />
-                            </div>
-
-                            <div class="col-12 table-fija">
-                            <asp:GridView ID="GridViewDetalleEvento" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False">
-                                <Columns>
-                                    <asp:BoundField DataField="nombre" HeaderText="Nombre" />
-                                    <asp:BoundField DataField="fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
-                                    <asp:BoundField DataField="totalEntradas" HeaderText="Total Entradas" />
-                                    <asp:BoundField DataField="entradasVendidas" HeaderText="Vendidas" />
-                                    <asp:BoundField DataField="entradasNoVendidas" HeaderText="No Vendidas" />
-                                    <asp:BoundField DataField="recaudacion" HeaderText="Recaudación" DataFormatString="${0:N2}" />
-                                </Columns>
-                            </asp:GridView>
-                            </div>
-
-                            <asp:Literal ID="litDatosRecaudacion" runat="server" EnableViewState="false" />
-                            <!-- Script para gráficos con Chart.js -->
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                            <script>
-                                // Gráfico de Barras
-                                var ctxBar = document.getElementById('barChart').getContext('2d');
-
-                                var datos = typeof datosRecaudacion !== 'undefined' ? datosRecaudacion : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-                                var barChart = new Chart(ctxBar, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Nobiembre', 'Diciembre'],
-                                        datasets: [{
-                                            label: 'Recaudación mensual ($)',
-                                            data: datos,
-                                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                                            borderColor: 'rgba(54, 162, 235, 1)',
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true
-                                            }
-                                        }
-                                    }
-                                });
-                            </script>
                         </div>
                     </asp:View>
 

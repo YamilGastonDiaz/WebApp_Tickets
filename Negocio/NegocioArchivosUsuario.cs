@@ -56,8 +56,6 @@ namespace Negocio
 
                     listarArchivo.Add(archivo);
                 }
-
-                return listarArchivo;
             }
             catch (Exception ex)
             {
@@ -67,6 +65,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return listarArchivo;
         }
     }
 }

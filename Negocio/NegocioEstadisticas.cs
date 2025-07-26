@@ -22,7 +22,6 @@ namespace Negocio
                 {
                     return datos.Lector.GetDecimal(0);
                 }
-                return 0;
             }
             catch (Exception ex)
             {
@@ -32,6 +31,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return 0;
         }
         public int UsuariosActivos()
         {
@@ -44,7 +44,6 @@ namespace Negocio
                 {
                     return datos.Lector.GetInt32(0);
                 }
-                return 0;
             }
             catch (Exception ex)
             {
@@ -54,6 +53,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return 0;
         }
         public int UsuariosDadosDeBaja()
         {
@@ -66,7 +66,6 @@ namespace Negocio
                 {
                     return datos.Lector.GetInt32(0);
                 }
-                return 0;
             }
             catch (Exception ex)
             {
@@ -76,22 +75,38 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return 0;
         }
-        public List<decimal> ObtenerRecaudacionMensual(int anio)
+        public List<CompraResumenMensual> ObtenerRecaudacionMensual(int anio)
         {
-            NegocioCompra negocioCompra = new NegocioCompra();
-            List<Compra> compras = negocioCompra.ListarCompra(anio);
+            List<CompraResumenMensual> lista = new List<CompraResumenMensual>();
 
             try
             {
-                decimal[] meses = CalcularRecaudacionMensual(compras);
+                datos.setearConsulta("SELECT DATENAME(MONTH, Compra_Fecha) AS Mes, MONTH(Compra_Fecha) AS NumeroMes, SUM(MontoTotal) AS RecaudacionMensual FROM Compras WHERE Estado = 1 AND YEAR(Compra_Fecha) = @Anio GROUP BY MONTH(Compra_Fecha), DATENAME(MONTH, Compra_Fecha) ORDER BY NumeroMes");
+                datos.setearParametro("@Anio", anio);
+                datos.ejecutarRead();
 
-                return meses.ToList();
+                while (datos.Lector.Read())
+                {
+                    CompraResumenMensual aux = new CompraResumenMensual
+                    {
+                        mes = datos.Lector.GetString(0),
+                        numeroMes = datos.Lector.GetInt32(1),
+                        recaudacionMensual = datos.Lector.GetDecimal(2)
+                    };
+                    lista.Add(aux);
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            finally
+            {
+                datos.cerrarConnection();
+            }
+            return lista;
         }
         public List<EventoRanking> ObtenerRankingEventos()
         {
@@ -111,8 +126,6 @@ namespace Negocio
                     };
                     lista.Add(aux);
                 }
-
-                return lista;
             }
             catch (Exception ex)
             {
@@ -122,6 +135,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return lista;
         }
         public List<UsuarioRanking> ObtenerRankingUsuarios()
         {
@@ -141,8 +155,6 @@ namespace Negocio
                     };
                     lista.Add(aux);
                 }
-
-                return lista;
             }
             catch (Exception ex)
             {
@@ -152,6 +164,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return lista;
         }
         public DetalleEvento ObtenerDetalleEvento(string nombreEvento)
         {
@@ -185,21 +198,6 @@ namespace Negocio
                 datos.cerrarConnection();
             }
             return null;
-        }
-        private decimal[] CalcularRecaudacionMensual(List<Compra> compras)
-        {
-            decimal[] meses = new decimal[12];
-
-            if (compras == null || compras.Count == 0)
-                return meses;
-
-            foreach (var compra in compras)
-            {
-                int mes = compra.fecha.Month - 1;
-                meses[mes] += compra.monto;
-            }
-
-            return meses;
         }
     }
 }

@@ -62,7 +62,7 @@ namespace WebApp_Tickets
                 EmailService emailService = new EmailService();
                 EntradaQR entradaQr = new EntradaQR();
 
-                Evento evento = negocioE.buscarEvento(eventoId);
+                Evento evento = negocioE.Obtener(eventoId);
                 string nombre = evento.name;
                 string fecha = evento.fecha.ToString("dddd, dd MMMM yyyy");
                 string lugar = evento.locale;

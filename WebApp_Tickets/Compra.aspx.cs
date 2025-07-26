@@ -25,7 +25,7 @@ namespace WebApp_Tickets
 
                     int id = (int)Session["id"];
 
-                    mostrarEvento.Add(negocio.buscarEvento(id));
+                    mostrarEvento.Add(negocio.Obtener(id));
 
                     rpt_NameYcantidad.DataSource = mostrarEvento;
                     rpt_NameYcantidad.DataBind();
@@ -50,7 +50,7 @@ namespace WebApp_Tickets
                 int id = (int)Session["id"];
 
                 NegocioEvento negocio = new NegocioEvento();
-                Evento evento = negocio.buscarEvento(id);
+                Evento evento = negocio.Obtener(id);
 
                 total = int.Parse(lbl_Contar.Text);
                 if (total > 0)
@@ -73,7 +73,7 @@ namespace WebApp_Tickets
             int id = (int)Session["id"];
 
             NegocioEvento negocio = new NegocioEvento();
-            Evento evento = negocio.buscarEvento(id);
+            Evento evento = negocio.Obtener(id);
 
             total = int.Parse(lbl_Contar.Text);
             if (total < MAX_ENTRADAS && total < evento.totalTickt)
@@ -118,7 +118,7 @@ namespace WebApp_Tickets
                 else
                 {
                     int idEvento = (int)Session["id"];
-                    Evento evento = negocioE.buscarEvento(idEvento);
+                    Evento evento = negocioE.Obtener(idEvento);
 
                     // Datos de la compra                    
                     string nombre = evento.name.ToString();

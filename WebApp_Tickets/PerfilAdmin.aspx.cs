@@ -189,7 +189,24 @@ namespace WebApp_Tickets
             int anio;
             if (int.TryParse(txtAnio.Text, out anio))
             {
-                CargarGrafico(anio);
+                CargarRecaudacionMensual(anio);
+            }
+        }
+
+        private decimal totalAnual = 0;
+        protected void RecaudacionRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                decimal montoMes = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "recaudacionMensual"));
+                totalAnual += montoMes;
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                e.Row.Cells[0].Text = "TOTAL ANUAL:";
+                e.Row.Cells[1].Text = totalAnual.ToString("C");
+                e.Row.Cells[0].Font.Bold = true;
+                e.Row.Cells[1].Font.Bold = true;
             }
         }
 
@@ -220,12 +237,10 @@ namespace WebApp_Tickets
             lblUsuariosBaja.Text = negocioEstadistica.UsuariosDadosDeBaja().ToString();
             lblRecaudacionTotal.Text = "$ " + negocioEstadistica.RecaudacionTotal().ToString("N2");
         }
-        private void CargarGrafico(int anio)
+        private void CargarRecaudacionMensual(int anio)
         {
-            var datos = negocioEstadistica.ObtenerRecaudacionMensual(anio);
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(datos);
-
-            litDatosRecaudacion.Text = $"<script>var datosRecaudacion = {json};</script>";
+            GridViewRecaudacion.DataSource = negocioEstadistica.ObtenerRecaudacionMensual(anio);
+            GridViewRecaudacion.DataBind();
         }
         private void CargarRankingEventos()
         {

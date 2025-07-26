@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Evento_Id, Evento_Nombre, Descripcion, Evento_Lugar, Evento_Fecha, Evento_Direccion, TotalEntrada, Precio, Evento_Imagen FROM Eventos");
+                datos.setearConsulta("SELECT Evento_Id, Evento_Nombre, Descripcion, Evento_Lugar, Evento_Fecha, Evento_Direccion, TotalEntrada, Precio, Evento_Imagen FROM Eventos WHERE Estado = 1");
                 datos.ejecutarRead();
 
                 while (datos.Lector.Read())
@@ -36,8 +36,6 @@ namespace Negocio
 
                     lista.Add(aux);
                 }
-
-                return lista;
             }
             catch (Exception ex)
             {
@@ -47,30 +45,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
-        }
-        public Evento buscarEvento(int id)
-        {
-            try
-            {
-                Evento evento = new Evento();
-                List<Evento> listaEventos = listar();
-                foreach (Evento evt in listaEventos)
-                {
-                    if (evt.id == id)
-                    {
-                        evento = evt;
-                    }
-                }
-                return evento;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConnection();
-            }
+            return lista;
         }
         public Evento Obtener(int id)
         {
@@ -110,9 +85,7 @@ namespace Negocio
             
             try
             {
-                datos.setearConsulta("INSERT INTO Eventos (Evento_Nombre, Descripcion, Evento_Fecha, Evento_Lugar, Evento_Direccion, TotalEntrada, Precio, Evento_Imagen) " +
-                                     "VALUES (@Nombre, @Descripcion, @Fecha, @Lugar, @Direccion, @Total, @Precio, @Img); " +
-                                     "SELECT SCOPE_IDENTITY();");
+                datos.setearConsulta("INSERT INTO Eventos (Evento_Nombre, Descripcion, Evento_Fecha, Evento_Lugar, Evento_Direccion, TotalEntrada, Precio, Evento_Imagen) VALUES (@Nombre, @Descripcion, @Fecha, @Lugar, @Direccion, @Total, @Precio, @Img);");
               
                 datos.setearParametro("@Nombre", evento.name);
                 datos.setearParametro("@Descripcion", evento.description);

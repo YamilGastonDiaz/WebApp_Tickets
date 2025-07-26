@@ -39,8 +39,6 @@ namespace Negocio
 
                     lista.Add(aux);
                 }
-
-                return lista;
             }
             catch (Exception ex)
             {
@@ -50,6 +48,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return lista;
         }
         public int Registro(Usuario usuario)
         {
@@ -103,8 +102,6 @@ namespace Negocio
 
                     return resultado == PasswordVerificationResult.Success;
                 }
-
-                return false;
             }
             catch (Exception ex)
             {
@@ -114,6 +111,7 @@ namespace Negocio
             {
                 datos.cerrarConnection();
             }
+            return false;
         }
         public void Modificar(Usuario usuario) 
         {

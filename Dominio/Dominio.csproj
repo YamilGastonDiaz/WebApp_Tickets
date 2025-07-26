@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ArchivosUsuario.cs" />
     <Compile Include="Compra.cs" />
+    <Compile Include="CompraResumenMensual.cs" />
     <Compile Include="DetalleEvento.cs" />
     <Compile Include="Evento.cs" />
     <Compile Include="EventoRanking.cs" />

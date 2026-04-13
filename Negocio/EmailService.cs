@@ -18,8 +18,8 @@ namespace Negocio
             email.Attachments.Add(adjunto);
         }
 
-        private readonly string myEmail = "devops.codetesting@gmail.com";
-        private readonly string myPassword = "fngv fkzp wwyq canu";
+        private readonly string myEmail = "";
+        private readonly string myPassword = "";
         public EmailService()
         {
             server = new SmtpClient();
